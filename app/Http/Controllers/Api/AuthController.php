@@ -82,7 +82,18 @@ class AuthController extends Controller
 
     public function refreshToken(Request $request)
     {
-        //
+        auth()->user()->token()->revoke();
+
+        $user = auth()->user();
+
+        $token = $user->createToken('myToken')->accessToken;
+
+        return response()->json([
+            'token'   => $token,
+            'message' => 'Token refreshed successfully',
+            'status'  => 200,
+            'success' => true,
+        ]);
     }
 
     public function logout(Request $request)
