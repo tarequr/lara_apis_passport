@@ -46,7 +46,30 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        //
+        $request->validate([
+            'email'    => ['required', 'string', 'email', 'max:255'],
+            'password' => ['required', 'string', 'min:8'],
+        ]);
+
+        if (! auth()->attempt($request->only('email', 'password'), $request->filled('remember'))) {
+            return response()->json([
+                'message' => 'The provided credentials are incorrect.',
+                'status'  => 422,
+                'success' => false,
+            ], 422);
+        }
+
+        $user = auth()->user();
+
+        $token = $user->createToken('myToken')->accessToken;
+
+        return response()->json([
+            'user'    => $user,
+            'token'   => $token,
+            'message' => 'User logged in successfully',
+            'status'  => 200,
+            'success' => true
+        ]);
     }
 
     public function profile(Request $request)

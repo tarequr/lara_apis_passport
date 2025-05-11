@@ -11,12 +11,7 @@ Route::get('/user', function (Request $request) {
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
-// Route::middleware('auth:sanctum')->group(function () {
-//     Route::get('profile', [AuthController::class, 'profile']);
-//     Route::post('logout', [AuthController::class, 'logout']);
-// });
-
-Route::group(['middleware' => ['auth:sanctum']], function () {
+Route::group(['middleware' => ['auth:api']], function () {
     Route::get('profile', [AuthController::class, 'profile']);
     Route::get('refresh', [AuthController::class, 'refreshToken']);
     Route::post('logout', [AuthController::class, 'logout']);
