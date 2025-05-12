@@ -1,7 +1,7 @@
 
-# Laravel Passport Setup (Personal Access Token based Authentication)
+# Laravel 12 Passport Setup using `install:api --passport`
 
-This documentation explains how to set up Laravel Passport for API authentication using personal access tokens.
+This guide sets up Laravel Passport authentication in Laravel 12 using the new `php artisan install:api --passport` command.
 
 ---
 
@@ -10,6 +10,13 @@ This documentation explains how to set up Laravel Passport for API authenticatio
 ```bash
 composer require laravel/passport
 ```
+
+This will:
+- Configure `auth.php` with Passport
+- Update `User` model
+- Set up API routes
+- Register `Passport::routes()`
+- Add `HasApiTokens` trait
 
 ---
 
